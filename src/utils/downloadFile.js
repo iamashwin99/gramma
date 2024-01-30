@@ -23,16 +23,9 @@ const downloadFile = async (url, path) => {
 
   const fileStream = fs.createWriteStream(path)
 
-  return new Promise((resolve, reject) => {
-    res.body.pipe(str).pipe(fileStream)
-    res.body.on("error", (err) => {
-      reject(err)
-    })
-    fileStream.on("finish", () => {
-      bar.stop()
-      resolve()
-    })
-  })
+  await pipeline(res.body, str, fileStream)
+  bar.stop()
+  console.log(`Downloaded ${path} successfully!`)
 }
 
 module.exports = downloadFile
