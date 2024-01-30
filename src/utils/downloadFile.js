@@ -1,6 +1,7 @@
 const fs = require("fs")
 const progressStream = require("progress-stream")
 const cliProgress = require("cli-progress")
+const { pipeline } = require('node:stream/promises');
 
 const toMegabytes = (bytes) => {
   return Number((bytes / (1000 * 1000)).toFixed(2))
